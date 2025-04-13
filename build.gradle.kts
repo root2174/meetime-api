@@ -6,6 +6,7 @@ plugins {
 
 group = "br.com.olx"
 version = "0.0.1-SNAPSHOT"
+val feignFormVersion: String by project
 
 java {
     toolchain {
@@ -26,16 +27,12 @@ repositories {
 extra["springCloudVersion"] = "2024.0.1"
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("io.github.openfeign.form:feign-form:3.8.0")
-    implementation("io.github.openfeign.form:feign-form-spring:3.8.0")
+    implementation("io.github.openfeign.form:feign-form:${feignFormVersion}")
+    implementation("io.github.openfeign.form:feign-form-spring:${feignFormVersion}")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

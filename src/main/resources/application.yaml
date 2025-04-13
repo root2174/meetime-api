@@ -1,11 +1,6 @@
 spring:
   application:
     name: meetime-api
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/meetime
-    username: postgres
-    password: postgres
 hubspot:
   base-url: ${HUBSPOT_BASE_URL:https://app.hubspot.com}
   hub-api-base-url: ${HUB_API_BASE_URL:https://api.hubapi.com}
