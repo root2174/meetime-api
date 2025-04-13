@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: meetime-api
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/meetime
+    username: postgres
+    password: postgres
+hubspot:
+  base-url: ${HUBSPOT_BASE_URL:https://app.hubspot.com}
+  hub-api-base-url: ${HUB_API_BASE_URL:https://api.hubapi.com}
+  auth-endpoint: ${HUBSPOT_AUTH_ENDPOINT:/oauth/authorize}
+  client-id: ${HUBSPOT_CLIENT_ID}
+  auth-scopes: ${HUBSPOT_AUTH_SCOPES:oauth crm.objects.contacts.read crm.objects.contacts.write}
+  auth-redirect-uri: ${HUBSPOT_AUTH_REDIRECT_URI:http://localhost:8080/api/v1/hubspot/auth/callback}
+  token-redirect-uri: ${HUBSPOT_TOKEN_REDIRECT_URI:http://localhost:8080/api/v1/hubspot/auth/callback}
+  token-endpoint: ${HUBSPOT_TOKEN_ENDPOINT:/oauth/v1/token}
+  token-grant-type: ${HUBSPOT_TOKEN_GRANT_TYPE:authorization_code}
+  client-secret: ${HUBSPOT_CLIENT_SECRET}
+logging:
+  level:
+    feign: DEBUG
+    br:
+      com:
+        olx:
+          meetimeapi:
+            infra:
+              client:
+                hubspot: DEBUG
