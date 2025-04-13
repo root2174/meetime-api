@@ -1,4 +1,4 @@
-package br.com.olx.meetimeapi.application.dto;
+package br.com.olx.meetimeapi.application.dto.hubspot.auth;
 
 import lombok.Builder;
 

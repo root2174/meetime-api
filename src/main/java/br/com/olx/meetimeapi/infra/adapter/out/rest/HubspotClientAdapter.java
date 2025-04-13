@@ -1,6 +1,8 @@
 package br.com.olx.meetimeapi.infra.adapter.out.rest;
 
-import br.com.olx.meetimeapi.application.dto.ExchangeHubspotCodeResponse;
+import br.com.olx.meetimeapi.application.dto.hubspot.auth.ExchangeHubspotCodeResponse;
+import br.com.olx.meetimeapi.application.dto.hubspot.contacts.CreateContactRequest;
+import br.com.olx.meetimeapi.application.dto.hubspot.contacts.CreateContactResponse;
 import br.com.olx.meetimeapi.application.port.out.rest.HubspotClient;
 import br.com.olx.meetimeapi.infra.client.hubspot.ExchangeHubspotCodeForTokenRequest;
 import br.com.olx.meetimeapi.infra.client.hubspot.HubspotFeignClient;
@@ -49,7 +51,18 @@ public class HubspotClientAdapter implements HubspotClient {
           .build();
     } catch (Exception e) {
       log.error(e.getMessage(), e);
-      throw new RuntimeException(e);
+      throw e;
+    }
+  }
+
+  @Override
+  public CreateContactResponse createContact(CreateContactRequest request) {
+    try {
+      var response = hubspotFeignClient.createContact(request.authorization(), request);
+      log.info("Created a new Hubspot contact {}", response.id());
+      return response;
+    } catch (Exception e) {
+      return null;
     }
   }
 }

@@ -1,6 +1,6 @@
 package br.com.olx.meetimeapi.application.service;
 
-import br.com.olx.meetimeapi.application.dto.GetHubspotAuthUrlResponse;
+import br.com.olx.meetimeapi.application.dto.hubspot.auth.GetHubspotAuthUrlResponse;
 import br.com.olx.meetimeapi.application.port.in.GetHubspotAuthUrlInteractor;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

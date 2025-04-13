@@ -1,7 +1,7 @@
 package br.com.olx.meetimeapi.infra.adapter.in.rest;
 
-import br.com.olx.meetimeapi.application.dto.ExchangeHubspotCodeResponse;
-import br.com.olx.meetimeapi.application.dto.GetHubspotAuthUrlResponse;
+import br.com.olx.meetimeapi.application.dto.hubspot.auth.ExchangeHubspotCodeResponse;
+import br.com.olx.meetimeapi.application.dto.hubspot.auth.GetHubspotAuthUrlResponse;
 import br.com.olx.meetimeapi.application.port.in.ExchangeHubspotCodeInteractor;
 import br.com.olx.meetimeapi.application.port.in.GetHubspotAuthUrlInteractor;
 import lombok.RequiredArgsConstructor;
