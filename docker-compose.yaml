@@ -1,18 +1,23 @@
 services:
-  db:
-    image: postgres:15-alpine
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meetime-api
     ports:
-      - "5432:5432"
+      - "8080:8080"
     environment:
-      - POSTGRES_DB=meetime
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
-    command: postgres -c 'max_connections=500'
+      - SPRING_PROFILES_ACTIVE=docker
+      - HUBSPOT_CLIENT_SECRET=${HUBSPOT_CLIENT_SECRET}
+      - HUBSPOT_CLIENT_ID=${HUBSPOT_CLIENT_ID}
+    networks:
+      - meetime-network
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 5s
-      timeout: 5s
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
       retries: 5
+
+networks:
+  meetime-network:
+    driver: bridge
