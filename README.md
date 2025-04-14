@@ -60,7 +60,7 @@ Content-Type: application/json
 [Hubspot - Webhooks](https://developers.hubspot.com/docs/guides/api/app-management/webhooks#webhook-subscriptions)
 [Hubspot - Validating Webhooks](https://developers.hubspot.com/docs/guides/apps/authentication/validating-requests)
 
-### Libs utilizadas.
+## Libs utilizadas.
 
 - **Resilience4j**: biblioteca para implementação de padrões de resiliência como circuit breaker, rate limiting e retry. Utilizada para controlar o rate limit da API do HubSpot (100 requisições a cada 10 segundos e máximo de 250.000 requisições diárias).
 
@@ -69,3 +69,11 @@ Content-Type: application/json
 - **OpenFeign**: cliente HTTP declarativo para facilitar a comunicação com APIs REST. Utilizado para criar um cliente HTTP para a API do HubSpot de forma simples e declarativa.
 
 - **Feign Form**: extensão do OpenFeign para suportar envio de formulários HTML. Utilizada para enviar requisições de autenticação OAuth2 para o HubSpot no formato application/x-www-form-urlencoded.
+
+## Melhorias futuras
+- Gravar o token de acesso para cada usuário em um banco de dados.
+- Implementar estratégia de refresh token do hubspot.
+- Implementar testes unitários e de integração.
+- Monitoria e observabilidade como logs estruturados, adicionar tracing distribuido, dashboards para métricas...
+- Implementar retry com backoff exponencial
+- Cache para tokens de acesso
