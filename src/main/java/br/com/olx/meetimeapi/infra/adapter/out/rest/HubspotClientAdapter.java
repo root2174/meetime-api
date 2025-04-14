@@ -6,6 +6,7 @@ import br.com.olx.meetimeapi.application.dto.hubspot.contacts.CreateContactRespo
 import br.com.olx.meetimeapi.application.port.out.rest.HubspotClient;
 import br.com.olx.meetimeapi.infra.client.hubspot.ExchangeHubspotCodeForTokenRequest;
 import br.com.olx.meetimeapi.infra.client.hubspot.HubspotFeignClient;
+import br.com.olx.meetimeapi.infra.service.RateLimiterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,8 @@ public class HubspotClientAdapter implements HubspotClient {
 
   @Value("${hubspot.token-redirect-uri}")
   private String tokenRedirectUri;
+
+  private final RateLimiterService rateLimitService;
 
   @Override
   public ExchangeHubspotCodeResponse exchangeHubspotCodeResponse(String code) {
@@ -58,11 +61,14 @@ public class HubspotClientAdapter implements HubspotClient {
   @Override
   public CreateContactResponse createContact(CreateContactRequest request) {
     try {
-      var response = hubspotFeignClient.createContact(request.authorization(), request);
-      log.info("Created a new Hubspot contact {}", response.id());
-      return response;
+      return rateLimitService.executeWithRateLimit(() -> {
+        var response = hubspotFeignClient.createContact(request.authorization(), request);
+        log.info("Created a new Hubspot contact {}", response.id());
+        return response;
+      });
     } catch (Exception e) {
-      return null;
+      log.error("Error creating HubSpot contact", e);
+      throw new RuntimeException("Failed to create contact in HubSpot", e);
     }
   }
 }

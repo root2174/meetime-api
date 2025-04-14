@@ -7,6 +7,7 @@ plugins {
 group = "br.com.olx"
 version = "0.0.1-SNAPSHOT"
 val feignFormVersion: String by project
+val resilience4jVersion: String by project
 
 java {
     toolchain {
@@ -31,6 +32,9 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("io.github.openfeign.form:feign-form:${feignFormVersion}")
     implementation("io.github.openfeign.form:feign-form-spring:${feignFormVersion}")
+    implementation("io.github.resilience4j:resilience4j-ratelimiter")
+    implementation("io.github.resilience4j:resilience4j-spring-boot3")
+    implementation("io.github.resilience4j:resilience4j-micrometer")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.projectlombok:lombok")
@@ -41,6 +45,7 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        mavenBom("io.github.resilience4j:resilience4j-bom:2.1.0")
     }
 }
 
